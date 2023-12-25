@@ -11,7 +11,7 @@ if "chat_history" not in st.session_state:
 
 
 
-DEFAULT_CKPT_PATH = './models/Qwen-7B-Chat'
+DEFAULT_CKPT_PATH = 'Qwen/Qwen-7B-Chat'
 
 
 def _get_args():
