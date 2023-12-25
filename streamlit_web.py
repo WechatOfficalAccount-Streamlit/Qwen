@@ -137,7 +137,18 @@ def main():
 
                     assistant_info = st.chat_message("assistant")
                     assistant_content = st.session_state["chat_history"][i][1]
-                    assistant_info.write(assistant_content)
+                    #assistant_info.write(assistant_content)
+
+                    pattern = r'<pre><code class="language-python">(.*?)<\/code><pre>'
+                    matchs = re.split(pattern, assistant_content, flags=re.DOTALL)
+                    if len(matchs) > 1:
+                        st.write(matchs[0])
+                        assistant_info.write(assistant_content)
+                        python_code = matchs[1]
+                        # 解码html实体字符并分行显示Python代码
+                        decoded_code = html.unescape(python_code)
+                        formatted_code = decoded_code.split("<br>")
+                        st.code("\n".join(formatted_code), language='python')
 
                 with st.sidebar:
                     if st.sidebar.button("清除对话历史"):
